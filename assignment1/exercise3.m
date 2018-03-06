@@ -1,14 +1,11 @@
-integerToSequenceReverse := function(n, base)
-  if n eq 0 then
-    return [];
-  end if;
-  rem := n mod base;
-  next := Integers() ! ((n-rem)/base);
-  return Append($$(next,base), rem);
-end function;
-
-integerToSequence := function(n,base)
-  return Reverse(integerToSequenceReverse(n, base));
+integerToSequence := function (n, base)
+  binSec := [];
+  while n ne 0 do
+    rem := n mod base;
+    binSec := Append(binSec, rem);
+    n := Integers() ! ((n-rem)/base); 
+  end while;
+  return binSec;
 end function;
 
 fastExponentiation := function(base, exponent, modulus)

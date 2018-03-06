@@ -1,7 +1,7 @@
 Erathostenes := function(n)
   B := [1 : x in [1 .. n]];
   B[1] := 0;
-  for index in [2 .. n] do
+  for index in [2 .. Floor(n/2)] do
     if B[index] eq 1 then
       k := index + index;
       while k le n do

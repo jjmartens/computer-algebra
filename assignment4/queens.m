@@ -1,3 +1,6 @@
+/**
+
+**/
 CheckLegal := function (board)
   illegalposvertices := {};
   illegalnegvertices := {};
@@ -17,8 +20,21 @@ CheckLegal := function (board)
   return true;
 end function;
 
+CheckLegalAlt := function(board) 
+  for x in [1..#board] do
+    for y in [1..x] do
+       if x ne y and board[x] ne 0 then 
+         if board[x] eq board[y] or board[x] eq board[y] + (x-y) or board[x] eq board[y] - (x-y) then 
+            return false;
+         end if;
+       end if;
+     end for;
+   end for;
+   return true;
+end function;
+
 /** 
-Little help function that determines the first row in which a queens needs to be placed
+ Little help function that determines the first row in which a queens needs to be placed
 **/
 firstZero := function (board)
   for i in [1..#board] do
@@ -26,7 +42,6 @@ firstZero := function (board)
       return i;
     end if;
   end for;
-  print board;
   return 0;
 end function;
 
@@ -35,21 +50,20 @@ end function;
 **/
 SearchQueenSolutions := function (N)
   board := [0: i in [1..N]];
-  searchTree := [board];
+  searchTree := [1];
   solutions := [];
   while #searchTree gt 0 do
     inspect := searchTree[#searchTree];
-    Prune(~searchTree);
-    if 0 in inspect then
-      fz := firstZero(inspect);
-      for placeQueen in [1..N] do
-        inspect[fz] := placeQueen;
-        if CheckLegal(inspect) then
-          Append(~searchTree, inspect);
-        end if;
-      end for; 
-    else 
-      Append(~solutions,inspect);
+    board[inspect] := board[inspect] + 1;
+    if board[inspect] gt N then
+      board[inspect] := 0;
+      Prune(~searchTree);
+    elif CheckLegalAlt(board) then 
+      if 0 in board then 
+        Append(~searchTree, firstZero(board));
+      else
+        Append(~solutions, board);    
+      end if;
     end if;
   end while;
   return #solutions;

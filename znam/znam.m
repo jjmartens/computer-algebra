@@ -33,17 +33,18 @@ function Znam(k)
                     D := (1 - &+[1/i : i in candidate]) * P;
                     D := Floor(D);
                     factors := Divisors(D + P*P); 
-                    solution := [];
                     for f in factors do
                         if (f mod D) eq (-P mod D) then
-                            solution := Append(candidate,(f + P) / D);
-                            solution := Append(solution, ((D+ P^2) / f + P) / D);
+                            x := (f + P) / D;
+                            y := ((D+ P^2) / f + P) / D;
+                            if y gt x then
+                                solution := Append(candidate,x);
+                                solution := Append(solution, y);
+                                print solution;
+                                Append(~solutions, solution);
+                            end if;    
                         end if; 
                     end for;
-                    if solution ne [] then
-                        print solution;
-                        Append(~solutions, solution);
-                    end if;
                 end if;
             end if;            
         else 

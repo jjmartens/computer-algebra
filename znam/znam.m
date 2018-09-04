@@ -7,7 +7,19 @@ function relativePrime(n, S)
     return true;
 end function;
 
-function Znam(k)
+function testProperZnam(S)
+  totalProd := &*S;
+  for i in S do
+    s := (totalProd div i) + 1;
+    if s mod i ne 0 or i eq s  then 
+      return false;
+    end if;
+  end for;
+  return true;
+end function;
+
+function Znam(k, proper)
+    k := k - 2;
     lbound := [1 : i in [1..k]];
     ubound := [k - 1 : i in [1..k]];
     solutions := [];
@@ -25,7 +37,7 @@ function Znam(k)
                     for i in [1..sindex-1] do
                         sumcount := sumcount + (1 / candidate[i]);       
                     end for;
-                    lbound[sindex] := Max(Ceiling(1/(1-sumcount)), lbound[sindex-1]);
+                    lbound[sindex] := Max(Floor(1/(1-sumcount)), lbound[sindex-1]);
                     ubound[sindex] := Floor((k+2-sindex) * (1/ (1-sumcount)));
                 else 
                     //Check if solution is correct;
@@ -40,8 +52,10 @@ function Znam(k)
                             if y gt x then
                                 solution := Append(candidate,x);
                                 solution := Append(solution, y);
-                                print solution;
-                                Append(~solutions, solution);
+                                if proper eq false or testProperZnam(solution) eq true then
+				  print solution;
+                                  Append(~solutions, solution);
+                                end if;
                             end if;    
                         end if; 
                     end for;
@@ -55,3 +69,10 @@ function Znam(k)
     return solutions;
 end function;
 
+function properZnam(k)
+   return Znam(k, true);
+end function;
+
+function improperZnam(k)
+  return Znam(k, false);
+end function;

@@ -1,0 +1,12 @@
+Magma V2.23-4     Tue Sep  4 2018 11:02:20 on hg201pc18 [Seed = 3323189196]
+Type ? for help.  Type <Ctrl>-D to quit.
+
+Loading file "znam.m"
+[ 2, 3, 7, 43, 1823, 193667 ]
+[ 2, 3, 7, 47, 403, 19403 ]
+[ 2, 3, 7, 47, 415, 8111 ]
+[ 2, 3, 7, 47, 583, 1223 ]
+[ 2, 3, 7, 55, 179, 24323 ]
+5
+
+Total time: 0.160 seconds, Total memory usage: 32.09MB
